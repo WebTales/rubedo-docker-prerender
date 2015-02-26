@@ -16,4 +16,7 @@ RUN sed -i "s#// server.use(prerender.s3HtmlCache());#server.use(require('preren
     sed -i "s#database.collection('pages', function(err, collection) {#database.collection('pages-prerender', function(err, collection) {#g" /usr/share/prerender/node_modules/prerender-mongodb-cache/lib/mongoCache.js
 # Expose port
 EXPOSE 3000
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /*.sh
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
