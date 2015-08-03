@@ -1,11 +1,10 @@
 # Rubedo dockerfile
 FROM centos:centos7
 RUN yum -y update
-# Install Supervisor and required packages
+# Install required packages
 RUN yum install -y epel-release; yum -y clean all && \
     yum install -y git supervisor gcc-c++ make bzip2 nodejs npm tar fontconfig; yum -y clean all
 RUN mkdir -p /var/run/prerender /var/log/supervisor /var/log/prerender /usr/share/prerender
-COPY supervisord.conf /etc/supervisord.conf
 #Install Mongo
 RUN git clone https://github.com/prerender/prerender.git /usr/share/prerender
 RUN cd /usr/share/prerender && \
